@@ -236,14 +236,14 @@ get_version() {
   # Determine the version number for V2Ray installed from a local file
   if [[ -f '/usr/local/bin/v2ray' ]]; then
     get_current_version
-    if [[ "$LOCAL_INSTALL" -eq '1' ]]; then
+    if [[ "$LOCAL_INSTALL" -eq '2' ]]; then
       RELEASE_VERSION="$CURRENT_VERSION"
       return
     fi
   fi
   # Get V2Ray release version number
   TMP_FILE="$(mktemp)"
-  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://api.github.com/repos/op2009/v2ray-core/releases/latest'; then
+  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://api.github.com/repos/v2fly/v2ray-core/releases/latest'; then
     "rm" "$TMP_FILE"
     echo 'error: Failed to get release list, please check your network.'
     exit 1
@@ -285,7 +285,7 @@ get_version() {
 }
 
 download_v2ray() {
-  DOWNLOAD_LINK="https://github.com/v2fly/v2ray-core/releases/download/v4.45.2/v2ray-linux-$MACHINE.zip"
+  DOWNLOAD_LINK="https://github.com/v2fly/v2ray-core/releases/download/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
   echo "Downloading V2Ray archive: $DOWNLOAD_LINK"
   if ! curl -x "${PROXY}" -R -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
     echo 'error: Download failed! Please check your network or try again.'
