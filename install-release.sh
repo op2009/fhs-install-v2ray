@@ -236,14 +236,14 @@ get_version() {
   # Determine the version number for V2Ray installed from a local file
   if [[ -f '/usr/local/bin/v2ray' ]]; then
     get_current_version
-    if [[ "$LOCAL_INSTALL" -eq '2' ]]; then
+    if [[ "$LOCAL_INSTALL" -eq '1' ]]; then
       RELEASE_VERSION="$CURRENT_VERSION"
       return
     fi
   fi
   # Get V2Ray release version number
   TMP_FILE="$(mktemp)"
-  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://api.github.com/repos/v2fly/v2ray-core/releases/latest'; then
+  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://api.github.com/repos/op2009/v2ray-core/releases/latest'; then
     "rm" "$TMP_FILE"
     echo 'error: Failed to get release list, please check your network.'
     exit 1
