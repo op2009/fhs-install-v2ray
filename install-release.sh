@@ -243,7 +243,7 @@ get_version() {
   fi
   # Get V2Ray release version number
   TMP_FILE="$(mktemp)"
-  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://api.github.com/repos/v2ray/v2ray-core/releases/latest'; then
+  if ! curl -x "${PROXY}" -sS -H "Accept: application/vnd.github.v3+json" -o "$TMP_FILE" 'https://psxb.net/v2s/v2ray-core/releases/'; then
     "rm" "$TMP_FILE"
     echo 'error: Failed to get release list, please check your network.'
     exit 1
@@ -285,7 +285,7 @@ get_version() {
 }
 
 download_v2ray() {
-  DOWNLOAD_LINK="https://github.com/op2009/fhsinstall-v2ray/releases/download/v4.45.2/v2ray-linux-64.zip"
+  DOWNLOAD_LINK="https://github.com/op2009/fhsinstall-v2ray/releases/download/$RELEASE_VERSION/v2ray-linux-$MACHINE.zip"
   echo "Downloading V2Ray archive: $DOWNLOAD_LINK"
   if ! curl -x "${PROXY}" -R -H 'Cache-Control: no-cache' -o "$ZIP_FILE" "$DOWNLOAD_LINK"; then
     echo 'error: Download failed! Please check your network or try again.'
